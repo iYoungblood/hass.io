@@ -1,0 +1,11 @@
+- platform: mqtt
+  name: "Kitchen Table Light"
+  state_topic: "smartthings/Kitchen Table/switch"
+  command_topic: "smartthings/Kitchen Table/switch"
+  brightness_state_topic: "smartthings/Kitchen Table/level"
+  brightness_command_topic: "smartthings/Kitchen Table/level"
+  brightness_scale: 101
+  payload_on: "on"
+  payload_off: "off"
+  optimistic: true
+  retain: true
