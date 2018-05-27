@@ -1,0 +1,20 @@
+# binary_sensor 50:
+  # - platform: rest
+    # name: Front Door Motion
+    # sensor_class: motion
+    # resource: http://192.168.1.71:8081/sensors.json?sense=motion_active
+    # value_template: '{{ value_json.motion_active.data[0][1][0] | round(0) }}'
+
+# binary_sensor 51:
+  # - platform: rest
+    # name: Backyard Motion
+    # sensor_class: motion
+    # resource: http://192.168.1.72:8081/sensors.json?sense=motion_active
+    # value_template: '{{ value_json.motion_active.data[0][1][0] | round(0) }}'
+
+# binary_sensor 52:
+  # - platform: rest
+    # name: Basement Motion
+    # sensor_class: motion
+    # resource: http://192.168.1.70:8081/sensors.json?sense=motion_active
+    # value_template: '{{ value_json.motion_active.data[0][1][0] | round(0) }}'

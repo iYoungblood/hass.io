@@ -1,0 +1,127 @@
+- platform: darksky
+  api_key: !secret darksky_api
+  monitored_conditions:
+    - temperature_max
+    - temperature
+    - humidity
+  update_interval: 600
+- platform: yr
+- platform: time_date
+  display_options:
+    - 'time'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/masterBedroom"
+  name: 'Master Bedroom Temperature'
+  unit_of_measurement: '°F'
+  value_template: '{{ value_json.temperature }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/masterBedroom"
+  name: 'Master Bedroom Humidity'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.humidity }}'
+  
+- platform: mqtt
+  name: "Backdoor Temperature"
+  state_topic: "smartthings/Back Door Sensor/temperature"
+  unit_of_measurement: '°F'
+
+- platform: mqtt
+  name: "Front Door Temperature"
+  state_topic: "smartthings/Front Door Sensor/temperature"
+  unit_of_measurement: '°F'
+  
+- platform: mqtt
+  name: "Front Room Temperature"
+  state_topic: "smartthings/Front Room Motion/temperature"
+  unit_of_measurement: '°F'
+    
+- platform: mqtt
+  name: "Keychain Battery"
+  state_topic: "smartthings/Adams Keys/battery"
+  unit_of_measurement: '%'
+    
+- platform: mqtt
+  name: "Front Room Motion Battery"
+  state_topic: "smartthings/Front Room Motion/battery"
+  unit_of_measurement: '%'    
+    
+- platform: mqtt
+  name: "Backdoor Sensor Battery"
+  state_topic: "smartthings/Back Door Sensor/battery"  
+  unit_of_measurement: '%'
+
+- platform: mqtt
+  name: "Backdoor"
+  state_topic: "smartthings/Back Door Sensor/contact" 
+  
+- platform: mqtt
+  name: "Front Door Sensor Battery"
+  state_topic: "smartthings/Front Door Sensor/battery"  
+  unit_of_measurement: '%'
+
+- platform: mqtt
+  name: "Front Door"
+  state_topic: "smartthings/Front Door Sensor/contact" 
+
+- platform: mqtt
+  name: "Front Room Motion"
+  state_topic: "smartthings/Front Room Motion/motion" 
+  
+- platform: template
+  sensors:
+    basement_ambient_temp:
+      friendly_name: Basement Temperature
+      unit_of_measurement: '°F'
+      value_template: "{{ (float(states.sensor.basement_cam_battery_temperature.state) * 1.8 + 32) | round(2) }}"
+
+- platform: template
+  sensors:
+    frontdoor_ambient_temp:
+      friendly_name: Front Door Temperature
+      unit_of_measurement: '°F'
+      value_template: "{{ (float(states.sensor.front_door_cam_battery_temperature.state) * 1.8 + 32) | round(2) }}"
+
+- platform: template
+  sensors:
+    backyard_ambient_temp:
+      friendly_name: Backyard Temperature
+      unit_of_measurement: '°F'
+      value_template: "{{ (float(states.sensor.back_yard_cam_battery_temperature.state) * 1.8 + 32) | round(2) }}"
+      
+      
+      
+#Alarm + Hue Lights
+- platform: template
+  sensors:
+    wakeup_alarm_time:
+      friendly_name: 'Alarm time'
+      value_template: '{% if states.input_number.wakeup_hour.state|length == 3 %}0{% endif %}{{ states.input_number.wakeup_hour.state | int }}:{% if states.input_number.wakeup_minutes.state|length == 3 %}0{% endif %}{{ states.input_number.wakeup_minutes.state | int }}'
+
+- platform: template
+  sensors:
+    wakeup_start_time_lights:
+      friendly_name: 'Fade-in start time'
+      value_template: >
+        {% if states.sensor.wakeup_alarm_time and states.input_number.wakeup_duration %}
+        {% set alarmtime = states.sensor.wakeup_alarm_time.state %}
+        {% set alarm_hour = alarmtime.split(":")[0] | int %}
+        {% set alarm_min = alarmtime.split(":")[1] | int %}
+        {% set light_dur = states.input_number.wakeup_duration.state | int %}
+        {% set alarm_min_light = alarm_min - light_dur %}
+        {% if alarm_min_light  < 0 %}
+        {% set alarm_min_light = alarm_min_light + 60 %}
+        {% set alarm_hour_light = alarm_hour - 1 %}
+        {% if alarm_hour_light < 0 %}{% set alarm_hour_light = 23 %}{% endif %}
+        {% if alarm_hour_light < 10 %}0{% endif %}{{ alarm_hour_light}}:{% if alarm_min_light < 10 %}0{% endif %}{{ alarm_min_light }}
+        {% else %}
+        {% if alarm_hour < 10 %}0{% endif %}{{ alarm_hour }}:{% if alarm_min_light < 10 %}0{% endif %}{{ alarm_min_light }}
+        {% endif %}
+        {% endif %}
+- platform: template
+  sensors:
+    wakeup_fadein_duration:
+      friendly_name: 'Fade-in duration'
+      value_template: '{{ states.input_number.wakeup_duration.state | int }}'
+      unit_of_measurement: 'min'

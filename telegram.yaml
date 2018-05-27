@@ -1,0 +1,4 @@
+- platform: broadcast
+  api_key: !secret tele_apikey
+  allowed_chat_ids:
+    - !secret my_chatid

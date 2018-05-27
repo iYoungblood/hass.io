@@ -1,0 +1,24 @@
+#sensor.living_room_motion:
+#  hidden: true
+#thermostat.family_room:
+#  entity_picture: https://example.com/images/nest.jpg
+#  friendly_name: Nest
+#switch.wemo_switch_2:
+#  friendly_name: Kitchen kettle
+#  icon: mdi:kettle
+#  switch.rfxtrx_switch:
+#  assumed_state: false
+  
+  
+switch.kitchen_table_light:
+  icon: mdi:lightbulb
+switch.night_light:
+  icon: mdi:lightbulb
+light.kitchen:
+  friendly_name: Kitchen Fan Lights
+light.kitchen_sink:
+  friendly_name: Kitchen Sink Light
+light.family_room:
+  friendly_name: Family Room Lights
+climate.thermostat:
+  friendly_name: Honeywell Thermostat

@@ -1,0 +1,65 @@
+  - host: 192.168.1.72
+    port: 8081
+    name: Back Yard Cam
+    sensors:
+      - battery_level
+      - battery_temp
+      - battery_voltage
+      - motion
+      - proximity
+      - sound
+    switches:
+      - night_vision
+      - torch
+      - video_recording
+  - host: 192.168.1.71
+    port: 8081
+    name: Front Door Cam
+    scan_interval: 5
+    sensors:
+      #- audio_connections
+      - battery_level
+      - battery_temp
+      - battery_voltage
+      #- light
+      - motion
+      #- pressure
+      - proximity
+      - sound
+      #- video_connections
+    switches:
+      #- exposure_lock
+      #- ffc
+      #- focus
+      #- gps_active
+      - night_vision
+      #- overlay
+      - torch
+      #- whitebalance_lock
+      - video_recording
+  - host: 192.168.1.70
+    port: 8081
+    name: Basement Cam
+    scan_interval: 1
+    sensors:
+      - battery_level
+      - battery_temp
+      - battery_voltage
+      - light
+      - motion
+      - proximity
+    switches:
+      - video_recording
+  - host: 192.168.1.73
+    port: 8081
+    name: Tablet
+    #scan_interval: 1
+    sensors:
+      - battery_level
+      - battery_temp
+      - battery_voltage
+      - light
+      - motion
+      #- proximity
+    switches:
+      - video_recording

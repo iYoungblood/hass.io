@@ -1,0 +1,19 @@
+######### AWS IoT CONFIG
+#broker: a1u980sqhvzps5.iot.us-east-2.amazonaws.com
+#port: 8883
+#tls_version: "1.2"
+#certificate: "/config/cert/ca-cert.pem"
+#client_key: "/config/cert/ha-private.pem.key"
+#client_cert: "/config/cert/ha-cert.pem.crt"
+#tls_insecure: false
+#client_id: home-assistant-01
+###########
+
+
+
+######## Mosquitto Config
+broker: !secret mosquitto_host
+#port: 1833
+client_id: home-assistant-02
+#username: 
+#password: 

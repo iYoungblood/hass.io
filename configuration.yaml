@@ -1,0 +1,109 @@
+homeassistant:
+  name: Home
+  latitude: !secret latit 
+  longitude: !secret longit 
+  elevation: 584
+  unit_system: imperial
+  time_zone: America/Detroit
+  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+logger:
+  default: error
+  logs:
+    homeassistant.components: warn
+    #homeassistant.components.camera: critical
+    #homeassistant.components.sensor: debug
+    homeassistant.components.automation: debug
+    #homeassistant.components.telegram_bot: debug
+    homeassistant.components.mqtt: info
+
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+datadog:
+  host: !secret datadog_agent
+  port: 8125
+
+hue:
+  bridges:
+    - host: !secret hue_bridge
+
+mqtt: !include mqtt.yaml
+media_player: !include media_player.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+switch: !include switches.yaml
+binary_sensor: !include binary.yaml
+telegram_bot: !include telegram.yaml
+notify: !include notify.yaml
+android_ip_webcam: !include ipwebcam.yaml
+climate: !include climate.yaml
+sensor: !include sensors.yaml
+input_number: !include input_number.yaml
+input_boolean: !include input_bool.yaml
+
+
+    
+###########################################################################
+############## ---- SMART THINGS ---- ###############
+
+ # #presence
+ # smartthings/Adam Youngblood's Android/presence
+ # smartthings/Adams Keys/presence
+  
+ # #not sure   
+ # smartthings/Contacts/notify
+ # smartthings/System/notify
+    
+ # #lights
+ # smartthings/Kitchen Table/switch
+ # smartthings/Kitchen Table/level,
+ # smartthings/Night Light/power,
+ 
+   ############## ---- SMART THINGS ---- ###############  
+############################################################################

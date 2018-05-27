@@ -1,0 +1,168 @@
+#################################################################
+## Groups
+
+## Default View
+#  default_view:
+#    view: yes
+#    name: 'Home'
+#    entities:
+#      - group.sensors
+#      - group.climetecontrol
+#      - group.devices
+#      - group.playlist_control
+#      - group.mopidy_main
+#      - group.bedsidestereo_speakers_main
+#      - group.living_room_tv_main
+#      - group.kitchen_stereo_main
+#      - group.bedside_speaker_main
+#      - group.kitchen_home_main
+#      - group.bedside_mini_main
+
+lights_view:
+  name: Lights
+  control: hidden
+  view: Yes
+  entities: 
+    - group.group_lights
+
+alarm_view:
+  name: Alarm
+  control: hidden
+  view: yes
+  entities:
+    - group.alarm
+
+climate_view:
+  name: Climate
+  view: Yes
+  entities:
+    - climate.thermostat
+    - sun.sun
+    - sensor.master_bedroom_humidity
+    - sensor.master_bedroom_temperature
+    - sensor.front_room_temperature
+    - sensor.front_door_temperature
+    - sensor.backdoor_temperature 
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_daily_high_temperature
+    - sensor.dark_sky_humidity
+
+cameras_view:
+  name: Cameras
+  view: yes
+  entities:
+    - camera.basement_cam
+    - camera.front_door_cam
+    - group.ip_camera_switches
+    - group.frontdoor_camera_sensors
+    - group.basement_camera_sensors
+    - group.backyard_camera_sensors    
+
+battery_view:
+  name: Battery Status
+  view: yes
+  entities:
+    - group.battery_1
+    - group.battery_2
+    - group.battery_3
+    - group.battery_4
+    - group.battery_5
+    - group.battery_6
+        
+group_lights:
+  name: Lights
+  control: hidden
+  entities: 
+    - light.kitchen
+    - light.kitchen_sink
+    - light.my_bedroom
+    - light.family_room
+    - light.back_door
+    - switch.night_light
+    - switch.kitchen_table_light
+    
+alarm:
+  name: Alarm
+  control: hidden
+  entities:
+    - sensor.wakeup_alarm_time
+    - sensor.wakeup_start_time_lights
+    - sensor.wakeup_fadein_duration
+    - input_number.wakeup_hour
+    - input_number.wakeup_minutes
+    - input_number.wakeup_duration
+    - input_boolean.wakeup
+    - input_boolean.wakeup_weekends
+    
+    
+battery_1:
+  name: Front door contact Sensor
+  entities:
+    - sensor.front_door_sensor_battery  
+battery_2:
+  name: Back door contact Sensor
+  entities:
+    - sensor.backdoor_sensor_battery
+battery_3:
+  name: Front room Motion Sensor
+  entities:
+    - sensor.front_room_motion_battery    
+battery_4:
+  name: Adams Keychain Sensor
+  entities:
+    - sensor.keychain_battery    
+battery_5:
+  name: Front room Motion Sensor
+  entities:
+    - sensor.front_room_motion_battery    
+battery_6:
+  name: Mobile Devices
+  entities:
+    - sensor.back_yard_cam_battery_level
+    - sensor.basement_cam_battery_level
+    - sensor.front_door_cam_battery_level
+    - sensor.tablet_battery_level
+ 
+    
+ip_camera_switches:
+  name: IP Camera Switches
+  control: hidden
+  entities:
+    - switch.basement_cam_video_recording
+    - switch.front_door_cam_night_vision
+    - switch.front_door_cam_torch
+    - switch.front_door_cam_video_recording
+    - switch.back_yard_cam_night_vision
+    - switch.back_yard_cam_torch
+    - switch.back_yard_cam_video_recording
+    - switch.tablet_video_recording
+
+frontdoor_camera_sensors:
+  name: Front Door Cam Sensors
+  entities:
+    - sensor.frontdoor_ambient_temp
+    - sensor.front_door_cam_battery_voltage
+    - sensor.front_door_cam_battery_level
+    - sensor.front_door_cam_motion
+    - sensor.front_door_cam_proximity
+    - sensor.front_door_cam_sound
+    
+backyard_camera_sensors:
+  name: Backyard Cam Sensors
+  entities:
+    - sensor.backyard_ambient_temp
+    - sensor.back_yard_cam_battery_voltage
+    - sensor.back_yard_cam_battery_level
+    - sensor.back_yard_cam_motion
+    - sensor.back_yard_cam_proximity
+    - sensor.back_yard_cam_sound
+
+basement_camera_sensors:
+  name: Basement Cam Sensors
+  entities:
+    - sensor.basement_ambient_temp
+    - sensor.basement_cam_battery_voltage
+    - sensor.basement_cam_battery_level
+    - sensor.basement_cam_motion
+    - sensor.basement_cam_proximity
+    - sensor.basement_cam_light_level
