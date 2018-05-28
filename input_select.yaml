@@ -1,0 +1,22 @@
+dishwasher_status:
+  name: Dishwasher Status
+  options:
+    - Running
+    - Drying
+    - 'Off'
+  initial: 'Off'
+  
+washer_status:
+  name: Washer Status
+  options:
+    - Filling
+    - Washing
+    - 'Off'
+  initial: 'Off'
+    
+dryer_status:
+  name: Dryer Status
+  options:
+    - 'On'
+    - 'Off'
+  initial: 'Off'
