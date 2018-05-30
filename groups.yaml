@@ -8,15 +8,16 @@
 #    entities:
 #      - group.sensors
 #      - group.climetecontrol
-#      - group.devices
-#      - group.playlist_control
-#      - group.mopidy_main
-#      - group.bedsidestereo_speakers_main
-#      - group.living_room_tv_main
-#      - group.kitchen_stereo_main
-#      - group.bedside_speaker_main
-#      - group.kitchen_home_main
-#      - group.bedside_mini_main
+#default_view:
+new_home_new:
+  name: Home1
+  view: yes
+  entities:
+    - group.group_lights
+    - group.things
+    - climate.honeywell_thermostat
+    - group.outdoor_climate
+    - group.media_group_1
 
 lights_view:
   name: Lights
@@ -26,7 +27,7 @@ lights_view:
     - group.group_lights
 
 alarm_view:
-  name: Alarm
+  name: Alarm Clock
   control: hidden
   view: yes
   entities:
@@ -43,9 +44,7 @@ climate_view:
     - sensor.front_room_temperature
     - sensor.front_door_temperature
     - sensor.backdoor_temperature 
-    - sensor.dark_sky_temperature
-    - sensor.dark_sky_daily_high_temperature
-    - sensor.dark_sky_humidity
+    - group.outdoor_climate
 
 cameras_view:
   name: Cameras
@@ -68,19 +67,34 @@ battery_view:
     - group.battery_4
     - group.battery_5
     - group.battery_6
-        
+things:
+  name: Things
+  view: no
+  entities:
+    - sensor.dishwasher_status
+    - sensor.washer_status
+    - sensor.dryer_status
+    
 group_lights:
   name: Lights
   control: hidden
   entities: 
     - light.kitchen
     - light.kitchen_sink
-    - light.my_bedroom
+    - light.kitchen_table_light
     - light.family_room
     - light.back_door
+    - light.my_bedroom    
     - switch.night_light
-    - switch.kitchen_table_light
-    
+
+outdoor_climate:
+  name: Weather Outside
+  control: hidden
+  entities:
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_humidity  
+    - sensor.dark_sky_daily_high_temperature
+
 alarm:
   name: Alarm
   control: hidden
@@ -123,7 +137,11 @@ battery_6:
     - sensor.front_door_cam_battery_level
     - sensor.tablet_battery_level
  
-    
+ 
+media_group_1:
+  - media_player.yamaha_receiver
+
+
 ip_camera_switches:
   name: IP Camera Switches
   control: hidden

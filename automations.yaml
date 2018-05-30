@@ -117,6 +117,361 @@
       entity_id: light.back_door
  
  
+####################################################
+#                Appliance                         #
+#                Automation                        # 
+####################################################
+
+####################################################
+#                Dishwasher                        #
+####################################################
+ #Dishwasher logic
+  # Dishwasher set running
+- id: dishwasher_started
+  alias: Set dishwasher active when power detected
+
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dishwasher_watts
+    above: 15
+
+  condition:
+    - condition: state
+      entity_id: input_select.dishwasher_status
+      state: 'Off'
+
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.dishwasher_status
+        option: Running
+
+# Dishwasher set drying
+- id: dishwasher_drying
+  alias: Set dishwasher drying when power drops
+
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dishwasher_watts
+    above: 300
+    for:
+      minutes: 1
+
+  condition:
+    condition: state
+    entity_id: input_select.dishwasher_status
+    state: Running
+
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.dishwasher_status
+      option: Drying
+
+# Dishwasher set off
+- id: dishwasher_finished
+  alias: Set dishwasher off
+
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dishwasher_watts
+    below: 5
+    for:
+      minutes: 5
+
+  condition:
+    condition: state
+    entity_id: input_select.dishwasher_status
+    state: Drying
+
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.dishwasher_status
+      option: 'Off'
+
+# Dishwasher Alert when done
+- id: dishwasher_send_note
+  alias: Send alert when dishwasher is done
+
+  trigger:
+    platform: state
+    entity_id: input_select.dishwasher_status
+    to: 'Off'
+
+  action:
+    service: notify.telegram_bot
+    data:
+      message: 'The Dishwasher has finished and is ready to be emptied.'
+      title: 'Dishwasher Finished'
+####################################################
+#                Dishwasher End                    #
+####################################################
+
+####################################################
+#                    Washer                        #
+####################################################
+  #washer only
+- id: washer_started
+  alias: Set washer active when power detected
+
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    below: 200
+    above: 90
+
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.washer_status
+        state: 'Off'
+      - condition: state  
+        entity_id: input_select.dryer_status
+        state: 'Off'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.washer_status
+        option: Filling
+  #washer and dryer running
+- id: washer_started_with_dryer
+  alias: Set washer active when power detected with dryer running
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    below: 280
+    above: 267
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.washer_status
+        state: 'Off'
+      - condition: state  
+        entity_id: input_select.dryer_status
+        state: 'On'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.washer_status
+        option: Filling
+
+        
+#Washer set Washing with dryer OFF
+- id: washer_washing
+  alias: Set washer washing when power drops
+
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    below: 240
+    above: 40
+    for:
+      minutes: 3
+
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.washer_status
+        state: Filling
+      - condition: state
+        entity_id: input_select.dryer_status
+        state: "Off"
+
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.washer_status
+      option: Washing
+
+      #Washer set Washing with dryer ON
+- id: washer_washing_with_dryer
+  alias: Set washer washing with dryer going when power drops
+
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    below: 500
+    above: 330
+    for:
+      minutes: 2
+
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.washer_status
+        state: Filling
+      - condition: state
+        entity_id: input_select.dryer_status
+        state: "On"
+
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.washer_status
+      option: Washing
+      
+
+# Washer set off with dryer OFF
+- id: washer_finished
+  alias: Set Washer off
+
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    below: 10
+    for:
+      minutes: 5
+
+  condition:
+    condition: state
+    entity_id: input_select.washer_status
+    state: Washing
+
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.washer_status
+      option: 'Off'
+# Washer set off when dryer ON
+- id: washer_finished_when_dryer_on
+  alias: Set Washer off when dryer on
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    below: 280
+    above: 240
+    for:
+      minutes: 2
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.washer_status
+        state: Washing
+      - condition: state
+        entity_id: input_select.dryer_status
+        state: 'On'
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.washer_status
+      option: 'Off'
+
+# Washer Alert when done
+- id: washer_send_note
+  alias: Send alert when washer is done
+
+  trigger:
+    platform: state
+    entity_id: input_select.washer_status
+    to: 'Off'
+
+  action:
+    service: notify.telegram_bot
+    data:
+      message: 'The washer has finished and is ready for the dryer.'
+      title: 'Washer Finished'
+  
+  
+  
+####################################################
+#                  Washer End                      #
+####################################################
+
+####################################################
+#                    Dryer                        #
+####################################################
+ #Dryer Only  
+- id: dryer_started
+  alias: Set dryer active when power detected
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    above: 375
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.dryer_status
+        state: 'Off'
+      - condition: state
+        entity_id: input_select.washer_status
+        state: 'Off'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.dryer_status
+        option: 'On'
+#Dryer Only with washer running already  
+- id: dryer_started_with_washer
+  alias: Set dryer active when power detected with washer running
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    above: 650
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.dryer_status
+        state: 'Off'
+      - condition: state
+        entity_id: input_select.washer_status
+        state: 'On'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.dryer_status
+        option: 'On'
+        
+# Dryer set off
+- id: dryer_finished
+  alias: Set Dryer off
+
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    below: 245
+    for:
+      minutes: 5
+
+  condition:
+    condition: state
+    entity_id: input_select.dryer_status
+    state: 'On'
+
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.dryer_status
+      option: 'Off'
+
+# Dryer Alert when done
+- id: dryer_send_note
+  alias: Send alert when dryer is done
+
+  trigger:
+    platform: state
+    entity_id: input_select.dryer_status
+    to: 'Off'
+
+  action:
+    service: notify.telegram_bot
+    data:
+      message: 'The dryer has finished and is ready.'
+      title: 'Dryer Finished'
+  
+  
+  
+####################################################
+#                  Washer End                      #
+####################################################
+  
 # ################################################################################
 # - id: front_door_nighttime_motion_initial
   # alias: 'Front Porch - Nighttime Motion'

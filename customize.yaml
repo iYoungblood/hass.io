@@ -1,24 +1,94 @@
-#sensor.living_room_motion:
-#  hidden: true
-#thermostat.family_room:
-#  entity_picture: https://example.com/images/nest.jpg
-#  friendly_name: Nest
-#switch.wemo_switch_2:
-#  friendly_name: Kitchen kettle
-#  icon: mdi:kettle
-#  switch.rfxtrx_switch:
-#  assumed_state: false
-  
-  
-switch.kitchen_table_light:
-  icon: mdi:lightbulb
+light.kitchen_table_light:
+  icon: mdi:silverware-variant
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
 switch.night_light:
-  icon: mdi:lightbulb
+  icon: mdi:hotel
+light.my_bedroom:
+  friendly_name: Bedroom Lights
+  icon: mdi:hotel
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
 light.kitchen:
   friendly_name: Kitchen Fan Lights
+  icon: mdi:fridge
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
 light.kitchen_sink:
   friendly_name: Kitchen Sink Light
+  icon: mdi:fridge
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
 light.family_room:
+  icon: mdi:sofa
   friendly_name: Family Room Lights
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: false
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
+light.back_door:
+  friendly_name: Backdoor
+  custom_ui_state_card: state-card-custom-ui
+  icon: mdi:home-variant
+  state_card_mode: single-line
+  stretch_slider: false
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
+    
 climate.thermostat:
   friendly_name: Honeywell Thermostat
+
+  
+sensor.dishwasher_status:
+  friendly_name: Dishwasher
+  icon: mdi:silverware
+sensor.washer_status:
+  friendly_name: Washer
+  icon: mdi:washing-machine
+sensor.dryer_status:
+  friendly_name: Dryer
+  icon: mdi:tumble-dryer
+  
+sensor.dark_sky_temperature:
+  friendly_name: Temperature Outside
+sensor.dark_sky_humidity:
+  friendly_name: Humidity Outside
+sensor.dark_sky_daily_high_temperature:
+  friendly_name: Daily High Temperature

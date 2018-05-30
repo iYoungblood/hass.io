@@ -59,7 +59,7 @@
       - battery_temp
       - battery_voltage
       - light
-      - motion
+      #- motion
       #- proximity
-    switches:
-      - video_recording
+    #switches:
+    #  - video_recording

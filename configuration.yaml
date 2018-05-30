@@ -9,9 +9,15 @@ homeassistant:
 
 # Enables the frontend
 frontend:
+  extra_html_url:
+    - /local/custom_ui/state-card-custom-ui.html
+  extra_html_url_es5:
+    - /www/custom_ui/state-card-custom-ui-es5.html
 
 # Enables configuration UI
 config:
+
+light: !include lights.yaml
 
 logger:
   default: error
@@ -19,9 +25,9 @@ logger:
     homeassistant.components: warn
     #homeassistant.components.camera: critical
     #homeassistant.components.sensor: debug
-    homeassistant.components.automation: debug
+    homeassistant.components.automation: info
     #homeassistant.components.telegram_bot: debug
-    homeassistant.components.mqtt: info
+    homeassistant.components.mqtt: debug
 
 
 http:
@@ -72,6 +78,11 @@ hue:
   bridges:
     - host: !secret hue_bridge
 
+wemo:
+  static:
+    - 192.168.1.75
+    - 192.168.1.76
+
 mqtt: !include mqtt.yaml
 media_player: !include media_player.yaml
 group: !include groups.yaml
@@ -86,7 +97,7 @@ climate: !include climate.yaml
 sensor: !include sensors.yaml
 input_number: !include input_number.yaml
 input_boolean: !include input_bool.yaml
-
+input_select: !include input_select.yaml
 
     
 ###########################################################################

@@ -125,3 +125,38 @@
       friendly_name: 'Fade-in duration'
       value_template: '{{ states.input_number.wakeup_duration.state | int }}'
       unit_of_measurement: 'min'
+
+- platform: template
+  sensors:
+    washer_watts:
+      friendly_name: "Washing Machine Power"
+      #icon: "mdi:washing-machine"
+      unit_of_measurement: "w"
+      value_template: "{{states.switch.washer.attributes.current_power_w}}"
+      
+      
+- platform: template
+  sensors:
+    dishwasher_watts:
+      friendly_name: "Dishwasher Machine Power"
+      #icon: "mdi:silverware"
+      unit_of_measurement: "w"
+      value_template: "{{states.switch.dishwasher.attributes.current_power_w}}"
+      
+- platform: template
+  sensors:
+    dishwasher_status:
+      value_template: '{{ states.input_select.dishwasher_status.state}}'
+      friendly_name: 'Dishwasher Status'
+- platform: template
+  sensors:
+    washer_status:
+      value_template: '{{ states.input_select.washer_status.state}}'
+      friendly_name: 'Washer Status'
+- platform: template
+  sensors:
+    dryer_status:
+      value_template: '{{ states.input_select.dryer_status.state}}'
+      friendly_name: 'Dryer Status'
+
+

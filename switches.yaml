@@ -6,10 +6,3 @@
   payload_off: "off"
   retain: true  
 
-- platform: mqtt
-  name: "Kitchen Table Light"
-  state_topic: "smartthings/Kitchen Table/switch"
-  command_topic: "smartthings/Kitchen Table/switch"
-  payload_on: "on"
-  payload_off: "off"
-  retain: true

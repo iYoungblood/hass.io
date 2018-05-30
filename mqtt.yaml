@@ -1,5 +1,5 @@
 ######### AWS IoT CONFIG
-#broker: a1u980sqhvzps5.iot.us-east-2.amazonaws.com
+#broker: !secret aws_mqtt_broker
 #port: 8883
 #tls_version: "1.2"
 #certificate: "/config/cert/ca-cert.pem"

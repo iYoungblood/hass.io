@@ -1,5 +1,33 @@
-- platform: honeywell
-  username: !secret honeywell_user
-  password: !secret honeywell_pw
-  region: us
-  scan_interval: 600
+# - platform: honeywell
+  # username: !secret honeywell_user
+  # password: !secret honeywell_pw
+  # region: us
+  # scan_interval: 600
+  
+  
+- platform: mqtt
+  name: Honeywell Thermostat
+  modes:
+    - 'heat'
+    - 'cool'
+    - 'off'
+  fan_modes:
+    - 'on'
+    - 'auto'
+    - 'circulate'
+  #power_command_topic: "smartthings/THERMOSTAT/thermostatMode/set"
+  mode_command_topic: "smartthings/THERMOSTAT/thermostatMode"
+  mode_state_topic: "smartthings/THERMOSTAT/thermostatMode"
+  #temperature_command_topic: "smartthings/THERMOSTAT/heatingSetpoint"  #For Heat  // Uncomment in winter
+  temperature_command_topic: "smartthings/THERMOSTAT/coolingSetpoint"  #For A/C
+  fan_mode_command_topic: "smartthings/THERMOSTAT/thermostatFanMode"
+  fan_mode_state_topic: "smartthings/THERMOSTAT/thermostatFanMode"
+  #swing_mode_command_topic: "study/ac/swing/set"
+  #current_temperature_topic: "smartthings/THERMOSTAT/temperature"
+  temperature_state_topic: "smartthings/THERMOSTAT/temperature"
+  
+# smartthings/THERMOSTAT/temperature,
+# smartthings/THERMOSTAT/thermostatOperatingState,
+# smartthings/THERMOSTAT/heatingSetpoint
+# smartthings/THERMOSTAT/thermostatSetpoint
+# smartthings/THERMOSTAT/coolingSetpoint
