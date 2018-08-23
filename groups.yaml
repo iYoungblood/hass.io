@@ -13,7 +13,7 @@ new_home_new:
   name: Main
   view: yes
   entities:
-    - group.group_lights
+    - group.lights
     - group.things
     - climate.honeywell_thermostat
     - group.media_group_1
@@ -25,7 +25,7 @@ lights_view:
   control: hidden
   view: Yes
   entities: 
-    - group.group_lights
+    - group.lights
 
 alarm_view:
   name: Alarm Clock
@@ -85,7 +85,7 @@ things:
     - lock.backdoor_lock
     
     
-group_lights:
+lights:
   name: Lights
   control: hidden
   entities: 
@@ -93,9 +93,10 @@ group_lights:
     - light.kitchen_sink
     - light.kitchen_table_light
     - light.family_room
-    - light.back_door
-    - light.front_porch
+    - light.back_porch
     - light.my_bedroom    
+    - light.bathroom
+    - light.hallway
     - switch.night_light
     - light.night_lights
 
