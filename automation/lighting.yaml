@@ -1,0 +1,113 @@
+#//////////////////////////////////////////////////#
+####################################################
+#               Lighting Automation                #
+####################################################
+#//////////////////////////////////////////////////#
+
+####################################################
+#      Turn off lights when sun rises              #
+####################################################
+#- id: suns_up_exterior_door_lights_off
+- alias: 'Turn off Front and back door Lights'
+  trigger:
+    platform: sun
+    event: sunrise
+    offset: "+00:30:00"
+  action:
+    service: light.turn_off
+    entity_id: 
+      - light.back_door
+      - light.kitchen_sink
+   
+##################################################################################################
+#  This automation matches a Hue Group with recessed Dimable Halogen bulbs on a Lutron Switch    #
+##################################################################################################
+#id: kitchen_light_off
+- alias: 'Kitchen light is turned off'
+  trigger:
+    - platform: state
+      entity_id: light.kitchen
+      to: 'off'
+  condition: []
+  action:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.kitchen
+          - light.kitchen_spot_lights
+                  
+- alias: 'Kitchen light is turned on'
+  trigger:
+    - platform: state
+      entity_id: sensor.brightness_variable
+  action:
+    - service: light.turn_on
+      entity_id: 
+        - light.kitchen
+        - light.kitchen_spot_lights
+      data_template:
+        entity_id: sensor.brightness_test
+        brightness: "{{ trigger.to_state.state | round }}"
+#######################################################################################################
+# /end  This automation matches a Hue Group with recessed Dimmable Halogen bulbs on a Lutron Switch   #
+#######################################################################################################
+
+####################################################
+#   Turn on // off hallway light with motion      #
+####################################################
+- alias: Turn on Hall light when there is movement at night
+  trigger:
+    platform: state
+    entity_id: sensor.hallway_motion
+    to: 'motion detected'
+  condition:
+    condition: and
+    conditions:
+      - condition: or
+        conditions:
+          - condition: sun
+            after: sunset
+          - condition: sun
+            before: sunrise
+      - condition: state  
+        entity_id: sensor.adams_phone
+        state: 'present'  
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.hallway
+    data:
+        brightness: 50
+
+        # - alias: Turn on Hall light when there is movement during day
+  # trigger:
+    # platform: state
+    # entity_id: sensor.hallway_motion
+    # to: 'motion detected'
+  # condition:
+    # condition: and
+    # conditions:
+      # condition: or
+        # - condition: sun
+          # after: sunrise
+        # - condition: sun
+          # before: sunset
+      # - condition: state  
+        # entity_id: sensor.adams_phone
+        # state: 'present'  
+  # action:
+    # service: homeassistant.turn_on
+    # entity_id: light.hallway
+    # data:
+        # brightness: 254
+        
+- alias: Turn off Hall light 1 minute after last movement
+  trigger:
+    platform: state
+    entity_id: sensor.hallway_motion
+    to: 'standby'
+    for:
+      seconds: 5
+  action:
+    service: homeassistant.turn_off
+    entity_id: light.hallway
+

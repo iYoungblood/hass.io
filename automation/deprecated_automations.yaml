@@ -1,0 +1,68 @@
+# - id: basement_motion
+  # alias: 'Basement - Motion'
+  # trigger:
+    # #- platform: state
+    # #  entity_id: binary_sensor.basement_motion
+    # #  from: 'off'
+    # #  to: 'on'
+    # - platform: numeric_state
+      # entity_id: sensor.basement_cam_motion
+      # above: 100
+  # action:
+    # - service: notify.telegram_bot
+      # data:
+        # title: Send an images
+        # message: There is Motion.
+        # data:
+          # photo:
+            # - url: http://192.168.1.70:8081/photo.jpg
+
+# - id: frontdoor_motion
+  # alias: 'Front Door - Motion'
+  # trigger:
+    # #- platform: state
+    # #  entity_id: binary_sensor.front_door_motion
+    # #  from: 'off'
+    # #  to: 'on'
+    # - platform: numeric_state
+      # entity_id: sensor.front_door_cam_motion
+      # above: 15
+  # action:
+    # - service: notify.telegram_bot
+      # data:
+        # title: Send an images
+        # message: There is Motion.
+        # data:
+          # photo:
+            # - url: http://192.168.1.71:8081/photo.jpg
+            
+            
+    
+##########################################################################
+#             Enable Nightmode on the Webcam at dusk                     #
+##########################################################################
+# - id: night_mode_ipcam
+  # alias: 'Enable Nightmode at Sunset'
+  # trigger:
+    # platform: sun
+    # event: sunset
+    # offset: "+00:55:00"
+  # action:
+    # service: homeassistant.turn_on
+    # entity_id: switch.back_yard_cam_night_vision, switch.front_door_cam_night_vision
+    
+# - id: night_mode_off_ipcam
+  # alias: 'Disable Nightmode at Sunset'
+  # trigger:
+    # platform: sun
+    # event: sunrise
+    # offset: "-00:30:00"
+  # action:
+    # service: homeassistant.turn_off
+    # entity_id: switch.back_yard_cam_night_vision, switch.front_door_cam_night_vision
+##########################################################################
+# /end        Enable Nightmode on the Webcam at dusk                     #
+##########################################################################
+
+
+    

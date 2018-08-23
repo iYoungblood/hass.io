@@ -32,3 +32,5 @@
     - "Zone_2"
     #zone_names:
     #  Main_Zone: "Family Room"
+- platform: roku
+  host: 192.168.1.125

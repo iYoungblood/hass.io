@@ -6,6 +6,8 @@ homeassistant:
   unit_system: imperial
   time_zone: America/Detroit
   customize: !include customize.yaml
+  whitelist_external_dirs:
+    - /config
 
 # Enables the frontend
 frontend:
@@ -17,7 +19,7 @@ frontend:
 # Enables configuration UI
 config:
 
-light: !include lights.yaml
+
 
 logger:
   default: error
@@ -25,9 +27,9 @@ logger:
     homeassistant.components: warn
     #homeassistant.components.camera: critical
     #homeassistant.components.sensor: debug
-    homeassistant.components.automation: info
+    homeassistant.components.automation: debug
     #homeassistant.components.telegram_bot: debug
-    homeassistant.components.mqtt: debug
+    homeassistant.components.mqtt: warn
 
 
 http:
@@ -36,17 +38,11 @@ http:
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
 
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
 
-# Discover some devices automatically
 discovery:
+  ignore:
+    - plex_mediaserver
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -70,10 +66,6 @@ tts:
 # Cloud
 cloud:
 
-datadog:
-  host: !secret datadog_agent
-  port: 8125
-
 hue:
   bridges:
     - host: !secret hue_bridge
@@ -86,35 +78,33 @@ wemo:
 mqtt: !include mqtt.yaml
 media_player: !include media_player.yaml
 group: !include groups.yaml
-automation: !include automations.yaml
+automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 switch: !include switches.yaml
 binary_sensor: !include binary.yaml
 telegram_bot: !include telegram.yaml
 notify: !include notify.yaml
-android_ip_webcam: !include ipwebcam.yaml
+#android_ip_webcam: !include ipwebcam.yaml
 climate: !include climate.yaml
 sensor: !include sensors.yaml
 input_number: !include input_number.yaml
 input_boolean: !include input_bool.yaml
 input_select: !include input_select.yaml
+recorder: !include recorder.yaml
+light: !include lights.yaml
 
-    
-###########################################################################
-############## ---- SMART THINGS ---- ###############
 
- # #presence
- # smartthings/Adam Youngblood's Android/presence
- # smartthings/Adams Keys/presence
-  
- # #not sure   
- # smartthings/Contacts/notify
- # smartthings/System/notify
+
+lock:
+  - platform: mqtt
+    name: Backdoor Lock
+    state_topic: "smartthings/August - Backdoor/lock"
+    command_topic: "smartthings/August - Backdoor/lock"
+    payload_lock: "locked"
+    payload_unlock: "unlocked"
+    state_on: "locked"
+    state_off: "unlocked"
+    optimistic: false
+    retain: true
     
- # #lights
- # smartthings/Kitchen Table/switch
- # smartthings/Kitchen Table/level,
- # smartthings/Night Light/power,
- 
-   ############## ---- SMART THINGS ---- ###############  
-############################################################################
+    

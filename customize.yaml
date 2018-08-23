@@ -1,3 +1,8 @@
+#light.*:
+#  custom_ui_state_card: state-card-custom-ui
+#group.*:
+#  custom_ui_state_card: state-card-custom-ui
+
 light.kitchen_table_light:
   icon: mdi:silverware-variant
   custom_ui_state_card: state-card-custom-ui
@@ -9,8 +14,31 @@ light.kitchen_table_light:
     max: 255
     off_when_min: true
     report_when_not_changed: false
+light.night_lights:
+  icon: mdi:hotel
+  friendly_name: Night Lights
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
 switch.night_light:
   icon: mdi:hotel
+
+group.av_system:
+  custom_ui_state_card: state-card-custom-ui
+  icon: mdi:television-box
+  confirm_controls_show_lock: true
+group.network_devices:
+  custom_ui_state_card: state-card-custom-ui
+  icon: mdi:access-point-network
+  confirm_controls_show_lock: true
+switch.eb8_outlet1:
+  icon: mdi:playstation
 light.my_bedroom:
   friendly_name: Bedroom Lights
   icon: mdi:hotel
@@ -24,8 +52,32 @@ light.my_bedroom:
     off_when_min: true
     report_when_not_changed: false
 light.kitchen:
-  friendly_name: Kitchen Fan Lights
+  friendly_name: Kitchen Lights
   icon: mdi:fridge
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
+light.kitchen_spot_lights:
+  friendly_name: Kitchen Spot Lights
+  icon: mdi:fridge
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
+light.front_porch:
+  friendly_name: Front Porch
+  icon: mdi:home-variant
   custom_ui_state_card: state-card-custom-ui
   state_card_mode: single-line
   stretch_slider: true
@@ -75,20 +127,95 @@ light.back_door:
 climate.thermostat:
   friendly_name: Honeywell Thermostat
 
-  
+
 sensor.dishwasher_status:
   friendly_name: Dishwasher
+  custom_ui_state_card: state-card-custom-ui
   icon: mdi:silverware
+  extra_badge:
+    entity_id: sensor.dishwasher_watts
 sensor.washer_status:
   friendly_name: Washer
+  custom_ui_state_card: state-card-custom-ui
   icon: mdi:washing-machine
+  extra_badge:
+    entity_id: sensor.washer_watts
 sensor.dryer_status:
   friendly_name: Dryer
+  custom_ui_state_card: state-card-custom-ui
   icon: mdi:tumble-dryer
-  
+  extra_badge:
+    entity_id: sensor.washer_watts
 sensor.dark_sky_temperature:
   friendly_name: Temperature Outside
 sensor.dark_sky_humidity:
   friendly_name: Humidity Outside
 sensor.dark_sky_daily_high_temperature:
   friendly_name: Daily High Temperature
+  
+sensor.home_to_downtown:
+  icon: mdi:car
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    theme: >-
+      var v = parseInt(entities['sensor.home_to_downtown'].state);
+      return v > 50 ? 'card-critical'
+      : v > 35 ? 'card-warning'
+      : null;  
+sensor.home_to_work:
+  icon: mdi:car
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    theme: >-
+      var v = parseInt(entities['sensor.home_to_work'].state);
+      return v > 50 ? 'card-critical'
+      : v > 35 ? 'card-warning'
+      : null;
+sensor.downtown_to_home:
+  icon: mdi:car
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    theme: >-
+      var v = parseInt(entities['sensor.downtown_to_home'].state);
+      return v > 50 ? 'card-critical'
+      : v > 35 ? 'card-warning'
+      : null;
+sensor.work_to_home:
+  icon: mdi:car
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    theme: >-
+      var v = parseInt(entities['sensor.work_to_home'].state);
+      return v > 50 ? 'card-critical'
+      : v > 35 ? 'card-warning'
+      : null;
+#
+# Sensors: System
+#
+sensor.processor_use:
+  friendly_name: CPU Load
+  custom_ui_state_card: state-card-custom-ui
+  icon: mdi:chip
+  extra_data_template: >-
+    return
+    entities['sensor.average_load'].state + ' ' +
+    '(' + entities['sensor.cpu_cores'].state + ' cores)';
+sensor.disk_use_percent:
+  custom_ui_state_card: state-card-custom-ui
+  extra_data_template: >-
+    return
+    Math.round(parseFloat(entities['sensor.disk_free_home'].state)) + ' ' +
+    entities['sensor.disk_free_home'].attributes['unit_of_measurement'] +
+    ' available';
+sensor.ipv4_address_eth0:
+  custom_ui_state_card: state-card-custom-ui
+  friendly_name: Local IP Address
+sensor.memory_use_percent:
+  custom_ui_state_card: state-card-custom-ui
+  extra_data_template: >-
+    return
+    Math.round(parseFloat(entities['sensor.memory_free'].state)) + ' ' +
+    entities['sensor.memory_free'].attributes['unit_of_measurement'] +
+    ' available';
+sensor.uptime_os:
+  icon: mdi:pi

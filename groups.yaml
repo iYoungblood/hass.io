@@ -10,14 +10,15 @@
 #      - group.climetecontrol
 #default_view:
 new_home_new:
-  name: Home1
+  name: Main
   view: yes
   entities:
     - group.group_lights
     - group.things
     - climate.honeywell_thermostat
-    - group.outdoor_climate
     - group.media_group_1
+    - group.travel
+    
 
 lights_view:
   name: Lights
@@ -41,21 +42,25 @@ climate_view:
     - sun.sun
     - sensor.master_bedroom_humidity
     - sensor.master_bedroom_temperature
+    - sensor.full_bath_humidity
+    - sensor.full_bath_temperature
+    - sensor.basement_office_temperature
+    - sensor.basement_office_humidity
     - sensor.front_room_temperature
     - sensor.front_door_temperature
     - sensor.backdoor_temperature 
     - group.outdoor_climate
 
-cameras_view:
-  name: Cameras
-  view: yes
-  entities:
-    - camera.basement_cam
-    - camera.front_door_cam
-    - group.ip_camera_switches
-    - group.frontdoor_camera_sensors
-    - group.basement_camera_sensors
-    - group.backyard_camera_sensors    
+# cameras_view:
+  # name: Cameras
+  # view: yes
+  # entities:
+    # - camera.basement_cam
+    # - camera.front_door_cam
+    # - group.ip_camera_switches
+    # - group.frontdoor_camera_sensors
+    # - group.basement_camera_sensors
+    # - group.backyard_camera_sensors    
 
 battery_view:
   name: Battery Status
@@ -74,6 +79,11 @@ things:
     - sensor.dishwasher_status
     - sensor.washer_status
     - sensor.dryer_status
+    - switch.eb8_outlet1
+    - group.av_system
+    - group.network_devices
+    - lock.backdoor_lock
+    
     
 group_lights:
   name: Lights
@@ -84,8 +94,10 @@ group_lights:
     - light.kitchen_table_light
     - light.family_room
     - light.back_door
+    - light.front_porch
     - light.my_bedroom    
     - switch.night_light
+    - light.night_lights
 
 outdoor_climate:
   name: Weather Outside
@@ -95,6 +107,30 @@ outdoor_climate:
     - sensor.dark_sky_humidity  
     - sensor.dark_sky_daily_high_temperature
 
+travel:
+  name: Travel Times
+  view: no
+  entities:
+    - sensor.home_to_downtown
+    - sensor.home_to_work
+    - sensor.downtown_to_home
+    - sensor.work_to_home
+system:
+  name: System
+  icon: mdi:home-assistant
+  entities:
+    - updater.updater
+    - sensor.ipv4_address_eth0
+    - sensor.uptime_friendly
+    - sensor.uptime_host
+    - sensor.cpu_temp
+    - sensor.processor_use
+    - sensor.memory_use_percent
+    - sensor.disk_use_percent
+    - sensor.database_size
+    - sensor.log_size
+
+    
 alarm:
   name: Alarm
   control: hidden
@@ -107,7 +143,19 @@ alarm:
     - input_number.wakeup_duration
     - input_boolean.wakeup
     - input_boolean.wakeup_weekends
-    
+
+av_system:
+  name: AV System
+  entities:
+    - switch.eb8_outlet2
+    - switch.eb8_outlet6
+    - switch.eb8_outlet8
+
+network_devices:
+  name: Wifi and Switch
+  entities:    
+    - switch.eb8_outlet4
+    - switch.eb8_outlet5
     
 battery_1:
   name: Front door contact Sensor
@@ -132,9 +180,9 @@ battery_5:
 battery_6:
   name: Mobile Devices
   entities:
-    - sensor.back_yard_cam_battery_level
-    - sensor.basement_cam_battery_level
-    - sensor.front_door_cam_battery_level
+    # - sensor.back_yard_cam_battery_level
+    # - sensor.basement_cam_battery_level
+    # - sensor.front_door_cam_battery_level
     - sensor.tablet_battery_level
  
  
@@ -142,45 +190,45 @@ media_group_1:
   - media_player.yamaha_receiver
 
 
-ip_camera_switches:
-  name: IP Camera Switches
-  control: hidden
-  entities:
-    - switch.basement_cam_video_recording
-    - switch.front_door_cam_night_vision
-    - switch.front_door_cam_torch
-    - switch.front_door_cam_video_recording
-    - switch.back_yard_cam_night_vision
-    - switch.back_yard_cam_torch
-    - switch.back_yard_cam_video_recording
-    - switch.tablet_video_recording
+# ip_camera_switches:
+  # name: IP Camera Switches
+  # control: hidden
+  # entities:
+    # - switch.basement_cam_video_recording
+    # - switch.front_door_cam_night_vision
+    # - switch.front_door_cam_torch
+    # - switch.front_door_cam_video_recording
+    # - switch.back_yard_cam_night_vision
+    # - switch.back_yard_cam_torch
+    # - switch.back_yard_cam_video_recording
+    # - switch.tablet_video_recording
 
-frontdoor_camera_sensors:
-  name: Front Door Cam Sensors
-  entities:
-    - sensor.frontdoor_ambient_temp
-    - sensor.front_door_cam_battery_voltage
-    - sensor.front_door_cam_battery_level
-    - sensor.front_door_cam_motion
-    - sensor.front_door_cam_proximity
-    - sensor.front_door_cam_sound
+# frontdoor_camera_sensors:
+  # name: Front Door Cam Sensors
+  # entities:
+    # - sensor.frontdoor_ambient_temp
+    # - sensor.front_door_cam_battery_voltage
+    # - sensor.front_door_cam_battery_level
+    # - sensor.front_door_cam_motion
+    # - sensor.front_door_cam_proximity
+    # - sensor.front_door_cam_sound
     
-backyard_camera_sensors:
-  name: Backyard Cam Sensors
-  entities:
-    - sensor.backyard_ambient_temp
-    - sensor.back_yard_cam_battery_voltage
-    - sensor.back_yard_cam_battery_level
-    - sensor.back_yard_cam_motion
-    - sensor.back_yard_cam_proximity
-    - sensor.back_yard_cam_sound
+# backyard_camera_sensors:
+  # name: Backyard Cam Sensors
+  # entities:
+    # - sensor.backyard_ambient_temp
+    # - sensor.back_yard_cam_battery_voltage
+    # - sensor.back_yard_cam_battery_level
+    # - sensor.back_yard_cam_motion
+    # - sensor.back_yard_cam_proximity
+    # - sensor.back_yard_cam_sound
 
-basement_camera_sensors:
-  name: Basement Cam Sensors
-  entities:
-    - sensor.basement_ambient_temp
-    - sensor.basement_cam_battery_voltage
-    - sensor.basement_cam_battery_level
-    - sensor.basement_cam_motion
-    - sensor.basement_cam_proximity
-    - sensor.basement_cam_light_level
+# basement_camera_sensors:
+  # name: Basement Cam Sensors
+  # entities:
+    # - sensor.basement_ambient_temp
+    # - sensor.basement_cam_battery_voltage
+    # - sensor.basement_cam_battery_level
+    # - sensor.basement_cam_motion
+    # - sensor.basement_cam_proximity
+    # - sensor.basement_cam_light_level

@@ -9,3 +9,40 @@
   payload_off: "off"
   optimistic: true
   retain: true
+  
+- platform: mqtt
+  name: "Kitchen Spot Lights"
+  state_topic: "smartthings/Kitchen Spot Lights/switch"
+  command_topic: "smartthings/Kitchen Spot Lights/switch"
+  brightness_state_topic: "smartthings/Kitchen Spot Lights/level"
+  brightness_command_topic: "smartthings/Kitchen Spot Lights/level"
+  brightness_scale: 101
+  payload_on: "on"
+  payload_off: "off"
+  optimistic: true
+  retain: true
+    
+- platform: mqtt
+  name: "Night Lights"
+  state_topic: "smartthings/Bedroom Night Light/switch"
+  command_topic: "smartthings/Bedroom Night Light/switch"
+  brightness_state_topic: "smartthings/Bedroom Night Light/level"
+  brightness_command_topic: "smartthings/Bedroom Night Light/level"
+  brightness_scale: 101
+  payload_on: "on"
+  payload_off: "off"
+  optimistic: true
+  retain: true
+  
+    
+- platform: mqtt
+  name: "Back Porch"
+  state_topic: "smartthings/Back Porch/switch"
+  command_topic: "smartthings/Back Porch/switch"
+  brightness_state_topic: "smartthings/Back Porch/level"
+  brightness_command_topic: "smartthings/Back Porch/level"
+  brightness_scale: 101
+  payload_on: "on"
+  payload_off: "off"
+  optimistic: true
+  retain: true

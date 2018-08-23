@@ -1,0 +1,93 @@
+
+#//////////////////////////////////////////////////#          
+####################################################
+#                  Zone                            #
+#               Automation                         #
+####################################################
+#//////////////////////////////////////////////////#
+
+####################################################
+#             Adam Home After Dark                 #
+####################################################
+- id: adam_home_after_dark
+  alias: Adams Home After Dark
+  trigger:
+    platform: state
+    entity_id: sensor.adams_phone
+  #topic: smartthings/Pixel 2 XL/presence
+  #payload: 'PRESENT'
+  #platform: mqtt
+  #topic: smartthings/Pixel 2 XL/presence
+  #payload: 'PRESENT'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+      - condition: state
+        entity_id: light.back_door
+        state: 'off'
+  action:
+    - service: notify.telegram_bot
+      data:
+        message: "Adam is home"
+    - service: light.turn_on
+      entity_id: light.back_door
+      data:
+        brightness: 100
+####################################################
+#        Adam Home After Dark /end                 #
+####################################################
+
+
+####################################################
+#          Thermostat Temp Automation              #
+####################################################
+
+
+################  A/C Automation ###################
+- id: adam_home_ac_on
+  alias: Adams Home Turn on AC
+  trigger:
+    # platform: state
+    # entity_id: sensor.adams_phone
+    platform: mqtt
+    topic: smartthings/Pixel 2 XL/presence
+    payload: 'PRESENT'
+  condition:
+    - condition: state
+      entity_id: climate.honeywell_thermostat
+      state: 'cool'
+  action:
+    - service: notify.telegram_bot
+      data:
+        message: "Adam is home, it is summer, A/C is on, setting to 74."
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.honeywell_thermostat
+        temperature: 74
+- id: adam_left_home_ac_on
+  alias: Adams Left Home Turn off AC
+  trigger:
+    platform: mqtt
+    topic: smartthings/Pixel 2 XL/presence
+    payload: 'not present'
+  condition:
+    - condition: state
+      entity_id: climate.honeywell_thermostat
+      state: 'cool'
+  action:
+    - service: notify.telegram_bot
+      data:
+        message: "Adam left home, it is summer, A/C is on, setting to 77."
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.honeywell_thermostat
+        temperature: 77
+###############  A/C Automation ####################
+        
+        
+####################################################
+#          Thermostat Temp Automation              #
+####################################################

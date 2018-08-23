@@ -1,0 +1,70 @@
+purge_interval: 1
+purge_keep_days: 5
+# #include:
+# #  domains:
+    # #- alarm_control_panel
+    # - device_tracker
+    # - binary_sensor
+    # - input_boolean
+    # - input_select
+    # - light
+    # - media_player
+    # - switch
+    # #- vacuum
+  # #entities:
+    # #- sensor.backdoor_contact
+
+exclude:
+  domains:
+    - sun
+  entities:
+    - automation.send_alert_when_dishwasher_is_done
+    - automation.send_alert_when_dryer_is_done
+    - automation.send_alert_when_washer_is_done
+    - automation.set_dishwasher_active_when_power_detected
+    - automation.set_dishwasher_drying_when_power_drops
+    - automation.set_dishwasher_off
+    - automation.set_dryer_active_when_power_detected
+    - automation.set_dryer_active_when_power_detected_with_washer_running
+    - automation.set_dryer_off
+    - automation.set_washer_active_when_power_detected
+    - automation.set_washer_active_when_power_detected_with_dryer_running
+    - automation.set_washer_off
+    - automation.set_washer_off_when_dryer_on
+    - automation.set_washer_washing_when_power_drops
+    - automation.set_washer_washing_with_dryer_going_when_power_drops
+    - sensor.back_yard_cam_battery_level
+    - sensor.back_yard_cam_proximity
+    - sensor.back_yard_cam_sound
+    - sensor.front_door_cam_battery_level
+    - sensor.front_door_cam_proximity
+    - sensor.front_door_cam_sound
+    - sensor.tablet_battery_level
+    - sensor.tablet_light_level
+    - sensor.wakeup_alarm_time
+    - sensor.wakeup_fadein_duration
+    - light.hue_white_lamp_1
+    - light.hue_white_lamp_2
+    - light.hue_white_lamp_3
+    - light.hue_white_lamp_5
+    - light.hue_white_lamp_6
+    - switch.back_yard_cam_night_vision
+    - switch.back_yard_cam_torch
+    - switch.back_yard_cam_video_recording
+    - switch.front_door_cam_night_vision
+    - switch.front_door_cam_torch
+    - switch.front_door_cam_video_recording
+    
+    
+    
+    
+    
+    
+    - device_tracker.ipad
+    - binary_sensor.backdoor_contact_sensor
+    - light.hue_lamp_2
+    - switch.nad_power
+    - switch.nad_volume
+    
+
+    
