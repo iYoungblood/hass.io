@@ -53,7 +53,7 @@
 #######################################################################################################
 
 ####################################################
-#   Turn on // off hallway light with motion      #
+#   Turn on // off hallway light with motion       #
 ####################################################
 - alias: Turn on Hall light when there is movement at night
   trigger:
@@ -63,42 +63,40 @@
   condition:
     condition: and
     conditions:
-      - condition: or
-        conditions:
-          - condition: sun
-            after: sunset
-          - condition: sun
-            before: sunrise
-      - condition: state  
-        entity_id: sensor.adams_phone
-        state: 'present'  
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state  
+      entity_id: sensor.adams_phone
+      state: 'present'  
   action:
     service: homeassistant.turn_on
     entity_id: light.hallway
     data:
-        brightness: 50
+      brightness: 50
 
-        # - alias: Turn on Hall light when there is movement during day
-  # trigger:
-    # platform: state
-    # entity_id: sensor.hallway_motion
-    # to: 'motion detected'
-  # condition:
-    # condition: and
-    # conditions:
-      # condition: or
-        # - condition: sun
-          # after: sunrise
-        # - condition: sun
-          # before: sunset
-      # - condition: state  
-        # entity_id: sensor.adams_phone
-        # state: 'present'  
-  # action:
-    # service: homeassistant.turn_on
-    # entity_id: light.hallway
-    # data:
-        # brightness: 254
+- alias: Turn on Hall light when there is movement
+  trigger:
+    platform: state
+    entity_id: sensor.hallway_motion
+    to: 'motion detected'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'above_horizon'
+    - condition: state  
+      entity_id: sensor.adams_phone
+      state: 'present'
+    - condition: numeric_state
+      entity_id: sensor.hallway_ldr
+      below: 350  
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.hallway
+    data:
+      brightness: 254
         
 - alias: Turn off Hall light 1 minute after last movement
   trigger:
@@ -106,8 +104,76 @@
     entity_id: sensor.hallway_motion
     to: 'standby'
     for:
-      seconds: 5
+      minutes: 1
   action:
     service: homeassistant.turn_off
     entity_id: light.hallway
+
+###################################################
+#/end   Turn on // off hallway light with motion   #
+###################################################
+
+####################################################
+#   Turn on // off bathroom light with motion      #
+####################################################
+- alias: Turn on Bathroom when movement at night
+  trigger:
+    platform: state
+    entity_id: sensor.full_bath_motion
+    to: 'motion detected'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state  
+      entity_id: sensor.adams_phone
+      state: 'present'  
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.bathroom
+    data:
+      brightness: 50
+
+- alias: Turn on Bathroom when movement
+  trigger:
+    platform: state
+    entity_id: sensor.full_bath_motion
+    to: 'motion detected'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'above_horizon'
+    - condition: state  
+      entity_id: sensor.adams_phone
+      state: 'present'  
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.bathroom
+    data:
+      brightness: 254
+        
+- alias: Turn off Bathroom 5 minute after last movement
+  trigger:
+    platform: state
+    entity_id: sensor.full_bath_motion
+    to: 'standby'
+    for:
+      minutes: 5
+  action:
+    service: homeassistant.turn_off
+    entity_id: light.bathroom
+
+
+
+####################################################
+#/end   Turn on // off bathroom light with motion   #
+####################################################
+
+
+
+
 
