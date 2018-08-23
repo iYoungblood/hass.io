@@ -163,6 +163,10 @@
     to: 'standby'
     for:
       minutes: 5
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.full_bath_humidity
+      below: 75 
   action:
     service: homeassistant.turn_off
     entity_id: light.bathroom
