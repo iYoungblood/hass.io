@@ -15,6 +15,7 @@ frontend:
     - /local/custom_ui/state-card-custom-ui.html
   extra_html_url_es5:
     - /www/custom_ui/state-card-custom-ui-es5.html
+  themes: !include_dir_named themes/
 
 # Enables configuration UI
 config:
