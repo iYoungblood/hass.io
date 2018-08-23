@@ -75,9 +75,33 @@ light.kitchen_spot_lights:
     max: 255
     off_when_min: true
     report_when_not_changed: false
-light.front_porch:
-  friendly_name: Front Porch
+light.back_porch:
+  friendly_name: Back Porch
   icon: mdi:home-variant
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
+light.bathroom:
+  friendly_name: Bathroom
+  icon: mdi:shower
+  custom_ui_state_card: state-card-custom-ui
+  state_card_mode: single-line
+  stretch_slider: true
+  hide_control: true
+  slider_theme:
+    min: 0
+    max: 255
+    off_when_min: true
+    report_when_not_changed: false
+light.hallway:
+  friendly_name: Hallway
+  icon: mdi:home-outline
   custom_ui_state_card: state-card-custom-ui
   state_card_mode: single-line
   stretch_slider: true
