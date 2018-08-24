@@ -1,0 +1,78 @@
+#
+# Activate/deactivate Apex EB8 Power bar
+#
+# This is actually for an aquarium, as I used to be big into saltwater so I
+# has this laying around. Has two 15A relays, and 6 lower amp, 5a IIRC.
+#
+# @link https://www.neptunesystems.com/
+#
+#######################################################################################
+#                         APEX Controller EB8                                         #
+#######################################################################################
+- platform: command_line
+  switches:
+    eb8_outlet1:
+      command_on: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet1_state=2&Update=Update
+      command_off: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet1_state=1&Update=Update
+      command_state: curl -u admin:dnkroz_n http://192.168.1.28:7333/cgi-bin/status.xml | grep -i '<name>outlet1</name>' -A2 | grep -E -i 'AO|ON'
+      friendly_name: PS3
+
+- platform: command_line
+  switches:
+    eb8_outlet2:
+      command_on: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet2_state=2&Update=Update
+      command_off: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet2_state=1&Update=Update
+      command_state: curl -u admin:dnkroz_n http://192.168.1.28:7333/cgi-bin/status.xml | grep -i '<name>outlet2</name>' -A2 | grep -E -i 'AO|ON'
+      friendly_name: FireStick
+
+- platform: command_line
+  switches:
+    eb8_outlet3:
+      command_on: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet3_state=2&Update=Update
+      command_off: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet3_state=1&Update=Update
+      command_state: curl -u admin:dnkroz_n http://192.168.1.28:7333/cgi-bin/status.xml | grep -i '<name>outlet3</name>' -A2 | grep -E -i 'AO|ON'
+      #friendly_name: Kitchen Lightswitch
+      
+- platform: command_line
+  switches:
+    eb8_outlet4:
+      command_on: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet4_ha_state=2&Update=Update
+      command_off: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet4_ha_state=1&Update=Update
+      command_state: curl -u admin:dnkroz_n http://192.168.1.28:7333/cgi-bin/status.xml | grep -i '<name>outlet4_ha</name>' -A2 | grep -E -i 'AO|ON'
+      friendly_name: 5Ghz Router
+      
+- platform: command_line
+  switches:
+    eb8_outlet5:
+      command_on: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet5_state=2&Update=Update
+      command_off: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet5_state=1&Update=Update
+      command_state: curl -u admin:dnkroz_n http://192.168.1.28:7333/cgi-bin/status.xml | grep -i '<name>outlet5</name>' -A2 | grep -E -i 'AO|ON'
+      friendly_name: Network Devices
+      
+- platform: command_line
+  switches:
+    eb8_outlet6:
+      command_on: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet6_state=2&Update=Update
+      command_off: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet6_state=1&Update=Update
+      command_state: curl -u admin:dnkroz_n http://192.168.1.28:7333/cgi-bin/status.xml | grep -i '<name>outlet6</name>' -A2 | grep -E -i 'AO|ON'
+      friendly_name: IR Blaster
+      
+- platform: command_line
+  switches:
+    eb8_outlet7:
+      command_on: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet7_state=2&Update=Update
+      command_off: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet7_state=1&Update=Update
+      command_state: curl -u admin:dnkroz_n http://192.168.1.28:7333/cgi-bin/status.xml | grep -i '<name>outlet7</name>' -A2 | grep -E -i 'AO|ON'
+      #friendly_name: Kitchen Lightswitch
+      
+- platform: command_line
+  switches:
+    eb8_outlet8:
+      command_on: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet8_ha_state=2&Update=Update
+      command_off: curl -X POST --user admin:dnkroz_n http://192.168.1.28:7333/status.sht?outlet8_ha_state=1&Update=Update
+      command_state: curl -u admin:dnkroz_n http://192.168.1.28:7333/cgi-bin/status.xml | grep -i '<name>outlet8_ha</name>' -A2 | grep -E -i 'AO|ON'
+      friendly_name: Yamaha Receiver
+      
+#######################################################################################
+#  /end                   APEX Controller EB8                                         #
+#######################################################################################
