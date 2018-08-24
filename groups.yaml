@@ -80,6 +80,7 @@ things:
     - sensor.washer_status
     - sensor.dryer_status
     - switch.eb8_outlet1
+    - switch.dehumidifier
     - group.av_system
     - group.network_devices
     - lock.backdoor_lock
@@ -88,6 +89,7 @@ things:
 lights:
   name: Lights
   control: hidden
+  view: no
   entities: 
     - light.kitchen
     - light.kitchen_sink
@@ -121,10 +123,10 @@ system:
   icon: mdi:home-assistant
   entities:
     - updater.updater
-    - sensor.ipv4_address_eth0
+    #- sensor.ipv4_address_eth0
     - sensor.uptime_friendly
     - sensor.uptime_host
-    - sensor.cpu_temp
+    #- sensor.cpu_temp
     - sensor.processor_use
     - sensor.memory_use_percent
     - sensor.disk_use_percent
