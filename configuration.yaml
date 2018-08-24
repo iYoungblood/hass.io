@@ -46,7 +46,7 @@ discovery:
     - plex_mediaserver
 
 # Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
+#conversation:
 
 # Enables support for tracking state changes over time
 history:
@@ -73,15 +73,15 @@ hue:
 
 wemo:
   static:
-    - 192.168.1.75
-    - 192.168.1.76
+    - !secret wemo_switch_1
+    - !secret wemo_switch_2
 
 mqtt: !include mqtt.yaml
 media_player: !include media_player.yaml
 group: !include groups.yaml
 automation: !include_dir_merge_list automation
 script: !include scripts.yaml
-switch: !include switches.yaml
+#switch: !include switches.yaml
 binary_sensor: !include binary.yaml
 telegram_bot: !include telegram.yaml
 notify: !include notify.yaml
@@ -92,7 +92,22 @@ input_number: !include input_number.yaml
 input_boolean: !include input_bool.yaml
 input_select: !include input_select.yaml
 recorder: !include recorder.yaml
-light: !include lights.yaml
+#light: !include lights.yaml
+
+#
+# Switches
+#
+# @link https://home-assistant.io/components/switch/
+#
+switch: !include_dir_merge_list switches/
+
+#
+# Lights
+#
+# @link https://home-assistant.io/components/light/
+#
+light: !include_dir_merge_list lights/
+
 
 
 
