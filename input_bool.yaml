@@ -6,4 +6,7 @@ wakeup_weekends:
   name: 'Wakeup weekends'
   icon: mdi:power
   initial: off
+night_mode:
+  name: Night mode
+  icon: mdi:weather-night
 
