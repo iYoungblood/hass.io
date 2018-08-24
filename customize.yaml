@@ -184,7 +184,7 @@ sensor.home_to_downtown:
     theme: >-
       var v = parseInt(entities['sensor.home_to_downtown'].state);
       return v > 50 ? 'card-critical'
-      : v > 35 ? 'card-warning'
+      : v > 30 ? 'card-warning'
       : null;  
 sensor.home_to_work:
   icon: mdi:car
@@ -193,7 +193,7 @@ sensor.home_to_work:
     theme: >-
       var v = parseInt(entities['sensor.home_to_work'].state);
       return v > 50 ? 'card-critical'
-      : v > 35 ? 'card-warning'
+      : v > 30 ? 'card-warning'
       : null;
 sensor.downtown_to_home:
   icon: mdi:car
@@ -202,7 +202,7 @@ sensor.downtown_to_home:
     theme: >-
       var v = parseInt(entities['sensor.downtown_to_home'].state);
       return v > 50 ? 'card-critical'
-      : v > 35 ? 'card-warning'
+      : v > 30 ? 'card-warning'
       : null;
 sensor.work_to_home:
   icon: mdi:car
@@ -211,7 +211,7 @@ sensor.work_to_home:
     theme: >-
       var v = parseInt(entities['sensor.work_to_home'].state);
       return v > 50 ? 'card-critical'
-      : v > 35 ? 'card-warning'
+      : v > 30 ? 'card-warning'
       : null;
 #
 # Sensors: System
@@ -243,3 +243,21 @@ sensor.memory_use_percent:
     ' available';
 sensor.uptime_os:
   icon: mdi:pi
+  
+  
+#
+# Switches
+#
+switch.dehumidifier:
+  custom_ui_state_card: state-card-custom-ui
+  icon: mdi:water-off
+  confirm_controls_show_lock: true
+
+  
+#
+# Updater
+#
+updater.updater:
+  custom_ui_state_card: state-card-custom-ui
+  extra_data_template: >-
+    Current version: ${entities['sensor.current_version'].state}
