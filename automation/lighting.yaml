@@ -5,6 +5,26 @@
 #//////////////////////////////////////////////////#
 
 ####################################################
+#       Turn on back porch light at night          #
+#         if light off and door opens              #
+####################################################
+#- id: suns_up_exterior_door_lights_off
+- alias: 'Turn on back_porch light when door opens'
+  trigger:
+    platform: state
+    entity_id: sensor.backdoor
+    to: 'open'
+  condition:
+    - condition: state
+      entity_id: light.back_porch
+      state: 'off' 
+  action:
+    service: light.turn_on
+    entity_id: 
+      - light.back_porch
+      - light.kitchen_sink
+
+####################################################
 #      Turn off lights when sun rises              #
 ####################################################
 #- id: suns_up_exterior_door_lights_off
@@ -16,7 +36,7 @@
   action:
     service: light.turn_off
     entity_id: 
-      - light.back_door
+      - light.back_porch
       - light.kitchen_sink
    
 ##################################################################################################
