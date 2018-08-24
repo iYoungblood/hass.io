@@ -1,0 +1,63 @@
+##
+## Main arguments, all optional
+##
+title: Hello Panel
+widget_dimensions: [120, 120]
+widget_margins: [5, 5]
+columns: 8
+rows: 6
+
+#
+# Common navigation
+#
+nav_main:
+    widget_type: navigate
+    dashboard: Main
+    title2: Home
+    icon_inactive: mdi-home-assistant
+    widget_style: "background: BLUE;"
+
+nav_control:
+    widget_type: navigate
+    dashboard: Control
+    title2: Control
+    icon_inactive: mdi-settings-outline
+    widget_style: "background: LightSkyBlue;"
+
+nav_security:
+    widget_type: navigate
+    dashboard: Security
+    title2: Security
+    icon_inactive: mdi-security-home
+    widget_style: "background: LightSkyBlue;"
+
+nav_status:
+    widget_type: navigate
+    dashboard: Status
+    title2: Status
+    icon_inactive: mdi-information-outline
+    widget_style: "background: LightSkyBlue;"
+
+nav_spacer:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"
+    
+#
+# Public Transit
+#
+to_downtown:
+    widget_type: sensor
+    title: Home to Downtown
+    entity: sensor.home_to_downtown
+    #sub_entity: sensor.home_to_metro_hour
+    value_style: "color:orange;"
+    text_style: "color:orange;font-size:250%;"
+    state_text_style: "background-color:#555;"
+    
+layout:
+    - nav_main, light.kitchen, light.back_porch, sensor.backdoor
+    - nav_control, media_player.49_tcl_roku_tv(2x2), sensor.back_porch_temperature
+    - nav_security, to_downtown
+    - nav_spacer(1x2)
+    -
+    - nav_status

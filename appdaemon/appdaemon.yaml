@@ -3,6 +3,7 @@ log:
   errorfile: STDERR
 appdaemon:
   threads: 10
+  disable_apps: 1
   plugins:
     HASS:
       type: hass
