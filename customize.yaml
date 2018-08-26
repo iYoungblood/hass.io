@@ -87,7 +87,7 @@ light.back_porch:
     max: 255
     off_when_min: true
     report_when_not_changed: false
-light.bathroom:
+light.full_bath:
   friendly_name: Bathroom
   icon: mdi:shower
   custom_ui_state_card: state-card-custom-ui
