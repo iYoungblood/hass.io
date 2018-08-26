@@ -15,9 +15,15 @@
     entity_id: sensor.backdoor
     to: 'open'
   condition:
-    - condition: state
-      entity_id: light.back_porch
-      state: 'off' 
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.back_porch
+        state: 'off' 
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+      
   action:
     service: light.turn_on
     entity_id: 
@@ -134,9 +140,9 @@
 ###################################################
 
 ####################################################
-#   Turn on // off bathroom light with motion      #
+#   Turn on // off Full Bath light with motion      #
 ####################################################
-- alias: Turn on Bathroom when movement at night
+- alias: Turn on Full Bath when movement at night
   trigger:
     platform: state
     entity_id: sensor.full_bath_motion
@@ -152,9 +158,9 @@
       state: 'present'  
   action:
     service: homeassistant.turn_on
-    entity_id: light.bathroom
+    entity_id: light.full_bath
     data:
-      brightness: 50
+      brightness: 25
 
 - alias: Turn on Bathroom when movement
   trigger:
@@ -172,9 +178,11 @@
       state: 'present'  
   action:
     service: homeassistant.turn_on
-    entity_id: light.bathroom
-    data:
-      brightness: 254
+    entity_id:
+      - light.full_bath
+      - switch.full_bath_ceiling_light
+    #data:
+    #  brightness: 254
         
 - alias: Turn off Bathroom 5 minute after last movement
   trigger:
@@ -186,18 +194,19 @@
   condition:
     - condition: numeric_state
       entity_id: sensor.full_bath_humidity
-      below: 75 
+      below: 75     
   action:
     service: homeassistant.turn_off
-    entity_id: light.bathroom
+    entity_id:
+      - light.full_bath
+      - switch.full_bath_ceiling_light
+       
 
 
 
 ####################################################
-#/end   Turn on // off bathroom light with motion   #
+#/end   Turn on // off Full Bath light with motion   #
 ####################################################
-
-
 
 
 
