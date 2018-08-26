@@ -1,0 +1,94 @@
+####################################################
+#              Humidity Automation                 #
+####################################################
+
+
+################  Full Bath Fan Automation ###################
+- alias: High Humidity in Full Bath
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.full_bath_humidity
+    above: 70
+  condition:
+    - condition: state
+      entity_id:  light.full_bath
+      state: 'on'
+  action:
+    service: homeassistant.turn_on
+    entity_id: switch.full_bath_ceiling_fan
+
+- alias: Turn off Full Bath Fan when light turns off
+  trigger:
+    platform: state
+    entity_id: light.full_bath
+    from: 'on'
+    to: 'off'
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.full_bath_ceiling_fan
+
+- alias: Turn off Full Bath Fan by humidity level
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.full_bath_humidity
+    below: 70
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.full_bath_ceiling_fan
+###############  A/C Automation ####################
+        
+        
+####################################################
+#                Humidity Automation               #
+####################################################
+
+####################################################
+#          Thermostat Temp Automation              #
+####################################################
+
+
+################  A/C Automation ###################
+- id: adam_home_ac_on
+  alias: Adams Home Turn on AC
+  trigger:
+    # platform: state
+    # entity_id: sensor.adams_phone
+    platform: mqtt
+    topic: smartthings/Pixel 2 XL/presence
+    payload: 'present'
+  condition:
+    - condition: state
+      entity_id: climate.honeywell_thermostat
+      state: 'cool'
+  action:
+    - service: notify.telegram_bot
+      data:
+        message: "Adam is home, it is summer, A/C is on, setting to 74."
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.honeywell_thermostat
+        temperature: 74
+- id: adam_left_home_ac_on
+  alias: Adams Left Home Turn off AC
+  trigger:
+    platform: mqtt
+    topic: smartthings/Pixel 2 XL/presence
+    payload: 'not present'
+  condition:
+    - condition: state
+      entity_id: climate.honeywell_thermostat
+      state: 'cool'
+  action:
+    - service: notify.telegram_bot
+      data:
+        message: "Adam left home, it is summer, A/C is on, setting to 77."
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.honeywell_thermostat
+        temperature: 77
+###############  A/C Automation ####################
+        
+        
+####################################################
+#          Thermostat Temp Automation              #
+####################################################
