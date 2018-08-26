@@ -16,16 +16,22 @@ new_home_new:
     - group.lights
     - group.things
     - climate.honeywell_thermostat
-    - group.media_group_1
-    - group.travel
     
-
+    #- group.travel
+    
 lights_view:
-  name: Lights
+  name: Media
   control: hidden
   view: Yes
   entities: 
-    - group.lights
+    - group.media_group_1
+    
+# lights_view:
+  # name: Lights
+  # control: hidden
+  # view: Yes
+  # entities: 
+    # - group.lights
 
 alarm_view:
   name: Alarm Clock
@@ -75,6 +81,7 @@ battery_view:
 things:
   name: Things
   view: no
+  control: hidden
   entities:
     - sensor.dishwasher_status
     - sensor.washer_status
@@ -97,7 +104,7 @@ lights:
     - light.family_room
     - light.back_porch
     - light.my_bedroom    
-    - light.bathroom
+    - light.full_bath
     - light.hallway
     - switch.night_light
     - light.night_lights
@@ -191,7 +198,7 @@ battery_6:
  
 media_group_1:
   - media_player.yamaha_receiver
-
+  - media_player.49_tcl_roku_tv
 
 # ip_camera_switches:
   # name: IP Camera Switches
