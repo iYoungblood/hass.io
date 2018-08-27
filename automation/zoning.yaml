@@ -14,11 +14,7 @@
   trigger:
     platform: state
     entity_id: sensor.adams_phone
-  #topic: smartthings/Pixel 2 XL/presence
-  #payload: 'PRESENT'
-  #platform: mqtt
-  #topic: smartthings/Pixel 2 XL/presence
-  #payload: 'PRESENT'
+    state: 'present'
   condition:
     condition: and
     conditions:
