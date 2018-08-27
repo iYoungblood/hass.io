@@ -32,6 +32,8 @@
     platform: numeric_state
     entity_id: sensor.full_bath_humidity
     below: 70
+    for:
+      seconds: 30
   action:
     service: homeassistant.turn_off
     entity_id: switch.full_bath_ceiling_fan
