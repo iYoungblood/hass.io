@@ -1,0 +1,4 @@
+- platform: mqtt
+  name: "August Battery"
+  state_topic: "smartthings/August - Backdoor/battery"  
+  unit_of_measurement: '%'
