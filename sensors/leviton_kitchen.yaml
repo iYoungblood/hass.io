@@ -1,0 +1,9 @@
+#
+# Template used to match Kitchen Hue Group to Kitchen can lights
+#
+
+- platform: template
+  sensors:
+    brightness_variable:
+      friendly_name: "Brightness Variable"
+      value_template: '{{ states.light.kitchen.attributes.brightness }}'

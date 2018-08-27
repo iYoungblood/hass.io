@@ -1,0 +1,127 @@
+####################################################
+#                Multisensors                      #
+####################################################
+
+####################################################
+#                 Master Bedroom                   #
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/masterBedroom"
+  name: 'Master Bedroom Temperature'
+  unit_of_measurement: '°F'
+  value_template: '{{ value_json.temperature }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/masterBedroom"
+  name: 'Master Bedroom Humidity'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.humidity }}'
+####################################################
+#                 Basement Office                  #
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/basementOffice"
+  name: 'Basement Office Temperature'
+  unit_of_measurement: '°F'
+  value_template: '{{ value_json.temperature }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/basementOffice"
+  name: 'Basement Office Humidity'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.humidity }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/basementOffice"
+  name: 'Basement Office Motion'
+  #unit_of_measurement: '%'
+  value_template: '{{ value_json.motion }}'  
+####################################################
+#                   Full Bath                      #
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/fullBath"
+  name: 'Full Bath Temperature'
+  unit_of_measurement: '°F'
+  value_template: '{{ value_json.temperature }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/fullBath"
+  name: 'Full Bath Humidity'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.humidity }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/fullBath"
+  name: 'Full Bath Motion'
+  #unit_of_measurement: '%'
+  value_template: '{{ value_json.motion }}'  
+####################################################
+#                   Back Porch                     #
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/backPorch"
+  name: 'Back Porch Temperature'
+  unit_of_measurement: '°F'
+  value_template: '{{ value_json.temperature }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/backPorch"
+  name: 'Back Porch Humidity'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.humidity }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/backPorch"
+  name: 'Back Porch Motion'
+  #unit_of_measurement: '%'
+  value_template: '{{ value_json.motion }}'  
+  
+####################################################
+#                   Front Porch                    #
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/frontPorch"
+  name: 'Front Porch Temperature'
+  unit_of_measurement: '°F'
+  value_template: '{{ value_json.temperature }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/frontPorch"
+  name: 'Front Porch Humidity'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.humidity }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/frontPorch"
+  name: 'Front Porch Motion'
+  #unit_of_measurement: '%'
+  value_template: '{{ value_json.motion }}'  
+####################################################
+#                   Hallway                    #
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/hallway"
+  name: 'Hallway Temperature'
+  unit_of_measurement: '°F'
+  value_template: '{{ value_json.temperature }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/hallway"
+  name: 'Hallway Humidity'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.humidity }}'
+
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/hallway"
+  name: 'Hallway Motion'
+  #unit_of_measurement: '%'
+  value_template: '{{ value_json.motion }}' 
+- platform: mqtt
+  state_topic: "homeIoT/Multisensors/hallway"
+  name: 'Hallway LDR'
+  #unit_of_measurement: '%'
+  value_template: '{{ value_json.ldr }}'   
+####################################################
+#                Multisensors END                  #
+####################################################

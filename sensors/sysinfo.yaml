@@ -1,0 +1,296 @@
+#######################################
+
+#
+# System monitor
+#
+# Lots of geeky details about the server hardware.
+#
+# @link https://home-assistant.io/components/sensor.systemmonitor/
+#
+- platform: systemmonitor
+  scan_interval: 60
+  resources:
+    - type: disk_use
+      arg: /home
+    - type: disk_free
+      arg: /home
+    - type: ipv4_address
+      arg: eth0
+    - type: load_1m
+    - type: load_5m
+    - type: load_15m
+    - type: memory_use
+    - type: memory_free
+    - type: processor_use
+    - type: since_last_boot
+
+
+#
+# Version
+#
+# @link https://home-assistant.io/components/sensor.version/
+#
+- platform: version
+
+
+#
+# Friendly version report
+#
+# Useful for HADashboard.
+#
+# @see /appdaemon/dashboards/Status.dash
+#
+- platform: template
+  sensors:
+    version_friendly:
+      friendly_name: Home Assistant Version
+      icon_template: mdi:update
+      value_template: >-
+        {% if states('sensor.current_version') != 'unknown' %}
+          Home Assistant {{ states('sensor.current_version') }}
+        {% else %}
+          Home Assistant
+        {% endif %}
+    update_available:
+      friendly_name: Update Available
+      icon_template: mdi:update
+      value_template: >-
+        {% if states('updater.updater') != 'unknown' %}
+          Update available: {{ states('updater.updater') }}
+        {% endif %}
+#
+# Disk space
+#
+# @see /appdaemon/dashboards/Status.dash
+# @see /groups/status.yaml
+#
+- platform: template
+  sensors:
+    disk_use_percent:
+      friendly_name: Disk Use /home
+      icon_template: mdi:harddisk
+      unit_of_measurement: '%'
+      value_template: >-
+        {% set disk_use = states('sensor.disk_use_home') | float %}
+        {% set disk_free = states('sensor.disk_free_home') | float %}
+        {{ (100 * disk_use / (disk_use + disk_free)) | round }}
+    disk_free_percent:
+      friendly_name: Disk Free /home
+      icon_template: mdi:harddisk
+      unit_of_measurement: '%'
+      value_template: >-
+        {{ 100 - states('sensor.disk_use_percent') | float | round }}
+#
+# RAM space
+#
+# @see /appdaemon/dashboards/Status.dash
+# @see /groups/status.yaml
+#
+- platform: template
+  sensors:
+    memory_use_percent:
+      friendly_name: Memory Use
+      icon_template: mdi:memory
+      unit_of_measurement: '%'
+      value_template: >-
+        {% set memory_use = states('sensor.memory_use') | float %}
+        {% set memory_free = states('sensor.memory_free') | float %}
+        {{ (100 * memory_use / (memory_use + memory_free)) | round }}
+    memory_free_percent:
+      friendly_name: Memory Free
+      icon_template: mdi:memory
+      unit_of_measurement: '%'
+      value_template: >-
+        {{ 100 - states('sensor.memory_use_percent') | float | round }}
+#
+# Host uptime
+#
+# @see /appdaemon/dashboards/Status.dash
+# @see /groups/status.yaml
+#
+- platform: template
+  sensors:
+    uptime_host:
+      friendly_name: Server Uptime
+      icon_template: mdi:server
+      value_template: >-
+        {% set slb = states('sensor.since_last_boot').split(' ') %}
+        {% set count = slb | length %}
+        {% set hms = slb[count - 1] %}
+        {% set hms_trimmed = hms.split('.')[0] %}
+        {% set hms_split = hms_trimmed.split(':') %}
+        {% set seconds = hms_split[2] | int %}
+        {% set minutes = hms_split[1] | int %}
+        {% set hours = hms_split[0] | int %}
+        {% set days = slb[0]|int %}
+        {% if hours == 0 and minutes == 0 %}
+          {{ time }} seconds
+        {% else %}
+          {%- if days > 0 -%}
+            {%- if days == 1 -%}
+              1 day
+            {%- else -%}
+              {{ days }} days
+            {%- endif -%}
+          {%- endif -%}
+          {%- if hours > 0 and days < 7 -%}
+            {%- if days > 0 -%}
+              {{ ', ' }}
+            {%- endif -%}
+            {%- if hours == 1 -%}
+              1 hour
+            {%- else -%}
+              {{ hours }} hours
+            {%- endif -%}
+          {%- endif -%}
+          {%- if days == 0 and minutes > 0 -%}
+            {%- if hours > 0 -%}
+              {{ ', ' }}{{ minutes }} min
+            {%- else -%}
+              {%- if minutes == 1 -%}
+                1 minute
+              {%- else -%}
+                {{ minutes }} minutes
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {% endif %}
+#
+# Home Assistant uptime
+#
+# For Home Assistant process/container.
+#
+# @see /appdaemon/dashboards/Status.dash
+# @see /groups/status.yaml
+#
+# @link https://home-assistant.io/components/sensor.uptime/
+#
+- platform: uptime
+  name: Uptime
+  scan_interval: 60
+  unit_of_measurement: hours
+
+- platform: template
+  sensors:
+    uptime_friendly:
+      friendly_name: HA Uptime
+      icon_template: mdi:home-assistant
+      value_template: >-
+        {% set uptime = states('sensor.uptime') | float %}
+        {% set time = (3600 * uptime) | int %}
+        {% set minutes = ((time % 3600) / 60) | int %}
+        {% set hours = ((time % 86400) / 3600) | int %}
+        {% set days = (time / 86400) | int %}
+        {% if time < 60 %}
+          {{ time }} seconds
+        {% else %}
+          {%- if days > 0 -%}
+            {%- if days == 1 -%}
+              1 day
+            {%- else -%}
+              {{ days }} days
+            {%- endif -%}
+          {%- endif -%}
+          {%- if hours > 0 and days < 7 -%}
+            {%- if days > 0 -%}
+              {{ ', ' }}
+            {%- endif -%}
+            {%- if hours == 1 -%}
+              1 hour
+            {%- else -%}
+              {{ hours }} hours
+            {%- endif -%}
+          {%- endif -%}
+          {%- if days == 0 and minutes > 0 -%}
+            {%- if hours > 0 -%}
+              {{ ', ' }}{{ minutes }} min
+            {%- else -%}
+              {%- if minutes == 1 -%}
+                1 minute
+              {%- else -%}
+                {{ minutes }} minutes
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {% endif %}
+#
+# CPU average load
+#
+# @see /appdaemon/dashboards/Status.dash
+# @see /groups/status.yaml
+#
+- platform: template
+  sensors:
+    average_load:
+      friendly_name: Average load
+      icon_template: mdi:chip
+      unit_of_measurement: '%'
+      value_template: >-
+         {% set load1 = '{0:0.2f}'.format(states('sensor.load_1m') | float) %}
+         {% set load5 = '{0:0.2f}'.format(states('sensor.load_5m') | float) %}
+         {% set load15 = '{0:0.2f}'.format(states('sensor.load_15m') | float) %}
+         {{ load1 }} {{ load5 }} {{ load15 }}
+#
+# CPU cores count
+#
+# Useful to get an idea of the system load. Scan interval is set to daily,
+# because it's quite unlikely that cores change ...often unless one plays with
+# the VM's settings all the time.
+#
+# @see /customize.yaml
+#
+# @link https://home-assistant.io/components/sensor.command_line/
+#
+- platform: command_line
+  name: CPU Cores
+  scan_interval: 86400
+  command: "grep 'model name' /proc/cpuinfo | wc -l"
+  icon_template: mdi:chip
+
+
+#
+# CPU temperature
+#
+# @see /appdaemon/dashboards/Status.dash
+# @see /groups/status.yaml
+#
+# @link https://community.home-assistant.io/t/displaying-cpu-temperature-within-home-assistant/8641
+# @link https://home-assistant.io/components/sensor.command_line/
+#
+# - platform: command_line
+  # name: CPU Temp
+  # scan_interval: 60
+  # unit_of_measurement: °C
+  # command: cat /sys/class/thermal/thermal_zone0/temp
+  # icon_template: mdi:thermometer
+  # value_template: '{{ (value | multiply(0.001)) | round(0) }}'
+
+
+#
+# File sizes
+#
+# @see /appdaemon/dashboards/Status.dash
+# @see /groups/status.yaml
+#
+# @link https://www.home-assistant.io/components/sensor.filesize/
+#
+- platform: filesize
+  file_paths:
+    - /config/home-assistant_v2.db
+    - /config/home-assistant.log
+
+- platform: template
+  sensors:
+    database_size:
+      friendly_name: Database Size
+      icon_template: mdi:database
+      unit_of_measurement: 'MiB'
+      value_template: >-
+         {{ states('sensor.homeassistant_v2db') | round }}
+    log_size:
+      friendly_name: Log Size
+      icon_template: mdi:history
+      unit_of_measurement: 'KiB'
+      value_template: >-
+         {{ (states.sensor.homeassistantlog.attributes.bytes / 1024) | round }}
+

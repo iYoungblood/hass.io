@@ -1,0 +1,46 @@
+- platform: mqtt
+  name: "Backdoor Temperature"
+  state_topic: "smartthings/Back Door Sensor/temperature"
+  unit_of_measurement: '°F'
+  
+- platform: mqtt
+  name: "Backdoor Sensor Battery"
+  state_topic: "smartthings/Back Door Sensor/battery"  
+  unit_of_measurement: '%'
+
+- platform: mqtt
+  name: "Backdoor"
+  state_topic: "smartthings/Back Door Sensor/contact"   
+
+- platform: mqtt
+  name: "Front Door Temperature"
+  state_topic: "smartthings/Front Door Sensor/temperature"
+  unit_of_measurement: '°F'
+  
+- platform: mqtt
+  name: "Front Door Sensor Battery"
+  state_topic: "smartthings/Front Door Sensor/battery"  
+  unit_of_measurement: '%'
+
+- platform: mqtt
+  name: "Front Door"
+  state_topic: "smartthings/Front Door Sensor/contact" 
+  
+- platform: mqtt
+  name: "Front Room Temperature"
+  state_topic: "smartthings/Front Room Motion/temperature"
+  unit_of_measurement: '°F'
+        
+- platform: mqtt
+  name: "Front Room Motion Battery"
+  state_topic: "smartthings/Front Room Motion/battery"
+  unit_of_measurement: '%'    
+
+- platform: mqtt
+  name: "Front Room Motion"
+  state_topic: "smartthings/Front Room Motion/motion" 
+
+- platform: mqtt
+  name: "Keychain Battery"
+  state_topic: "smartthings/Adams Keys/battery"
+  unit_of_measurement: '%'

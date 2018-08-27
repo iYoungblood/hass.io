@@ -1,0 +1,19 @@
+- platform: mqtt
+  name: "Qubino S1 Power"
+  state_topic: "smartthings/Qubino Flush 2 Relays (Q1)/power"  
+  unit_of_measurement: 'W'
+  
+- platform: mqtt
+  name: "Qubino S2 Power"
+  state_topic: "smartthings/Qubino Flush 2 Relays (Q2)/power"  
+  unit_of_measurement: 'W'
+  
+- platform: mqtt
+  name: "Qubino S1 Energy"
+  state_topic: "smartthings/Qubino Flush 2 Relays (Q1)/energy"  
+  unit_of_measurement: 'W'
+  
+- platform: mqtt
+  name: "Qubino S2 Energy"
+  state_topic: "smartthings/Qubino Flush 2 Relays (Q2)/energy"  
+  unit_of_measurement: 'W'
