@@ -51,11 +51,9 @@
 - id: adam_home_ac_on
   alias: Adams Home Turn on AC
   trigger:
-    # platform: state
-    # entity_id: sensor.adams_phone
-    platform: mqtt
-    topic: smartthings/Pixel 2 XL/presence
-    payload: 'present'
+    platform: state
+    entity_id: sensor.adams_phone
+    to: 'present'
   condition:
     - condition: state
       entity_id: climate.honeywell_thermostat
@@ -67,13 +65,13 @@
     - service: climate.set_temperature
       data:
         entity_id: climate.honeywell_thermostat
-        temperature: 74
+        temperature: 75
 - id: adam_left_home_ac_on
   alias: Adams Left Home Turn off AC
   trigger:
-    platform: mqtt
-    topic: smartthings/Pixel 2 XL/presence
-    payload: 'not present'
+    platform: state
+    entity_id: sensor.adams_phone
+    to: 'not present'
   condition:
     - condition: state
       entity_id: climate.honeywell_thermostat
