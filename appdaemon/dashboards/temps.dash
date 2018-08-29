@@ -1,0 +1,87 @@
+##
+## Main arguments, all optional
+##
+title: Hello Panel
+widget_dimensions: [120, 120]
+widget_margins: [5, 5]
+columns: 8
+rows: 6
+
+#
+# Common navigation
+#
+nav_main:
+    widget_type: navigate
+    dashboard: Main
+    title2: Home
+    icon_inactive: mdi-home-assistant
+    widget_style: "background: BLUE;"
+
+nav_control:
+    widget_type: navigate
+    dashboard: Control
+    title2: Control
+    icon_inactive: mdi-settings-outline
+    widget_style: "background: LightSkyBlue;"
+
+nav_security:
+    widget_type: navigate
+    dashboard: Security
+    title2: Security
+    icon_inactive: mdi-security-home
+    widget_style: "background: LightSkyBlue;"
+
+nav_status:
+    widget_type: navigate
+    dashboard: Status
+    title2: Status
+    icon_inactive: mdi-information-outline
+    widget_style: "background: LightSkyBlue;"
+
+nav_spacer:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"
+nav_spacer1:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"
+
+    
+    
+master_bedroom_sensor:
+    widget_type: multisensor
+    entity: sensor.master_bedroom_temperature
+    entity2: sensor.master_bedroom_humidity
+    title2: Master
+    widget_style: "background: LightSkyBlue;"
+    title2_style: "margin-top:3px;"
+
+halfbath_sensor:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"
+kitchen_sensor:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"
+family_room_sensor:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"
+hall_sensor:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"
+fullbath_sensor:
+    widget_type: label  
+    widget_style: "background: LightSkyBlue;"    
+backdoor_sensor:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"    
+kitchen_sensor:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"
+front_bedroom_sensor:
+    widget_type: label
+    widget_style: "background: LightSkyBlue;"    
+layout:
+    - nav_main, master_bedroom_sensor(2x2), nav_spacer1(2x2), fullbath_sensor(1x2), backdoor_sensor(1x2), kitchen_sensor(2x2)
+    - nav_control
+    - nav_security, hall_sensor(4x1), family_room_sensor(4x3)
+    - nav_spacer(1x1), front_bedroom_sensor(2x2), fullbath_sensor(2x2)
+    - nav_status
